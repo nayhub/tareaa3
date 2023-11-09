@@ -21,6 +21,6 @@ public class Snickers extends Dulce {
     @Override
     public String sonido() {
         //super.sonido()
-        return "Tarea2.Snickers";
+        return "Snickers";
     }
 }

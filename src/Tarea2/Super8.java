@@ -22,6 +22,6 @@ public class Super8 extends Dulce {
      */
     @Override
     public String sonido() {
-        return "*c come un Tarea2.Super8";
+        return "Super8";
     }
 }

@@ -21,6 +21,6 @@ public class Fanta extends Bebida {
      */
     @Override
     public String sonido() {
-        return "Tarea2.Fanta";
+        return "Fanta";
     }
 }

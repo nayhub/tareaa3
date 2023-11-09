@@ -6,7 +6,7 @@ import Tarea2.Moneda;
  * Clase que representa una moneda de 500.
  * Hereda de la clase Tarea2.Moneda.
  */
-class Moneda500 extends Moneda {
+public class Moneda500 extends Moneda {
     /**
      * Constructor de la clase Tarea2.Moneda500.
      */
