@@ -9,6 +9,7 @@ public class MyFrame extends JFrame {
     JLabel precios, vuelto;
     public MyFrame() {
         //cosas del JFrame
+
         super("EXPENDEDOR");
         setLayout(null);
         setSize(900, 500);
@@ -17,6 +18,8 @@ public class MyFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon image = new ImageIcon("src/Images/icono.jpg");
         setIconImage(image.getImage());
+
+
 
         //Aquí está la creación de los JPanels principales (:
         JPanel panelprincipal = new JPanel();
@@ -34,13 +37,6 @@ public class MyFrame extends JFrame {
         panelprincipal.setBackground(new Color(255, 228, 225));
         panelprincipal.setSize(1000, 500);
 
-        //Jlabel que dice deposito
-        //deposito.setBounds(500, 380, 140, 40);
-        //deposito.setText("vuelto");
-        //deposito.setHorizontalAlignment(SwingConstants.CENTER);
-        //deposito.setVerticalAlignment(SwingConstants.CENTER);
-        //deposito.setForeground(new Color(229,43,80));
-        //deposito.setFont(new Font("Elephant", Font.PLAIN, 12));
 
         //el layout del panelexpendedor
         panelexpendedor.setLayout(new GridLayout(3, 3));
@@ -181,14 +177,14 @@ public class MyFrame extends JFrame {
         moneda1500.setFont(new Font("Franklin Gothic Medium",Font.PLAIN,10));
         moneda1500.setFocusable(false);
 
-        JButton pagar = new JButton("pagar");
-        pagar.setForeground(new Color(229,43,80));
+        JButton pagar = new JButton("Aceptar");
+        pagar.setForeground(new Color(0,150,0));
         pagar.setFont(new Font("Elephant", Font.PLAIN, 12));
         panelcomprador.add(pagar);
         pagar.setFocusable(false);
         pagar.setBackground(new Color(255, 205, 205));
 
-        JButton borrar = new JButton("borrar");
+        JButton borrar = new JButton("Cancelar");
         borrar.setForeground(new Color(229,43,80));
         borrar.setFont(new Font("Elephant", Font.PLAIN, 12));
         panelcomprador.add(borrar);
