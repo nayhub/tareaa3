@@ -215,10 +215,12 @@ public class MyFrame extends JFrame {
     }
 
     //tengo esto aquí solamente para ir probando mientras edito el GUI. después hay que sacarlo
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         MyFrame frame = new MyFrame();
     }
+
+     */
 
     public class BotonProductoListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
