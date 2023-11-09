@@ -1,19 +1,29 @@
 package GUI;
 
-import Tarea2.Comprador;
-import Tarea2.NoHayProductoException;
-import Tarea2.PagoInsuficienteException;
+import Tarea2.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class PanelComprador extends JPanel {
     private Comprador comprador;
-    public PanelComprador(){
+    public Moneda moneda;
+    public int totalMonedas;
+    //public ArrayList <Moneda> monedas;
+    private EstadoPanel estadoPanel;
 
-        setLayout(new GridLayout(3, 3));
+    public PanelComprador(EstadoPanel estadoPanel){
+        this.estadoPanel = estadoPanel;
+        //monedas = new ArrayList<>();
+
+        //estadoPanel.setVisible(true);
+        setLayout(new GridLayout(2, 2));
         setBounds(500, 100, 300, 230);
         setBackground(Color.WHITE);
+
 
 
         //añadir botones para panelcomprador
@@ -25,6 +35,17 @@ public class PanelComprador extends JPanel {
         moneda100.setVerticalTextPosition(JButton.CENTER);
         moneda100.setFont(new Font("Franklin Gothic Medium",Font.PLAIN,10));
         moneda100.setFocusable(false);
+            moneda100.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Moneda100 moneda100 = new Moneda100();
+                    moneda = moneda100;
+                    //monedas.add(moneda);
+                    estadoPanel.refreshEstadoPanel("seleccione el producto");
+
+                }
+            });
+
 
         JButton moneda500 = new JButton("500");
         moneda500.setForeground(Color.BLACK);
@@ -34,6 +55,19 @@ public class PanelComprador extends JPanel {
         moneda500.setVerticalTextPosition(JButton.CENTER);
         moneda500.setFont(new Font("Franklin Gothic Medium",Font.PLAIN,10));
         moneda500.setFocusable(false);
+            moneda500.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Moneda moneda500 = new Moneda500();
+                    moneda = moneda500;
+                    //monedas.add(moneda);
+
+                    estadoPanel.refreshEstadoPanel("seleccione el producto");
+                }
+            });
+
+
+
 
         JButton moneda1000 = new JButton("1000");
         moneda1000.setForeground(Color.BLACK);
@@ -43,6 +77,17 @@ public class PanelComprador extends JPanel {
         moneda1000.setVerticalTextPosition(JButton.CENTER);
         moneda1000.setFont(new Font("Franklin Gothic Medium",Font.PLAIN,10));
         moneda1000.setFocusable(false);
+        moneda1000.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Moneda1000 moneda1000 = new Moneda1000();
+                moneda = moneda1000;
+                //monedas.add(moneda);
+
+                estadoPanel.refreshEstadoPanel("seleccione el producto");
+            }
+        });
+
 
         JButton moneda1500 = new JButton("1500");
         moneda1500.setForeground(Color.BLACK);
@@ -52,6 +97,15 @@ public class PanelComprador extends JPanel {
         moneda1500.setVerticalTextPosition(JButton.CENTER);
         moneda1500.setFont(new Font("Franklin Gothic Medium",Font.PLAIN,10));
         moneda1500.setFocusable(false);
+        moneda1500.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Moneda1500 moneda1500 = new Moneda1500();
+                moneda = moneda1500;
+                //monedas.add(moneda);
+                estadoPanel.refreshEstadoPanel("seleccione el producto");
+            }
+        });
 
 
         //agregar las imagenes para las monedas
@@ -68,32 +122,19 @@ public class PanelComprador extends JPanel {
         moneda1000.setIcon(new ImageIcon(moneda3.getImage().getScaledInstance(100, 75, Image.SCALE_SMOOTH)));
         moneda1500.setIcon(new ImageIcon(moneda4.getImage().getScaledInstance(100, 75, Image.SCALE_SMOOTH)));
 
-
-        JButton pagar = new JButton("Aceptar");
-        pagar.setForeground(new Color(0,150,0));
-        pagar.setFont(new Font("Elephant", Font.PLAIN, 12));
-        add(pagar);
-        pagar.setFocusable(false);
-        pagar.setBackground(new Color(255, 205, 205));
-
-        JButton borrar = new JButton("Cancelar");
-        borrar.setForeground(new Color(229,43,80));
-        borrar.setFont(new Font("Elephant", Font.PLAIN, 12));
-        add(borrar);
-        borrar.setFocusable(false);
-        borrar.setBackground(new Color(255, 205, 205));
-
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
     }
-    public static void main(String[] args) throws NoHayProductoException, PagoInsuficienteException {
-        ventanaTest v = new ventanaTest();
-        PanelComprador panel = new PanelComprador();
-        v.add(panel);
-        v.setVisible(true);
+
+
+    public EstadoPanel getEstadoPanel(){
+        return estadoPanel;
     }
+
+
+
 }
 

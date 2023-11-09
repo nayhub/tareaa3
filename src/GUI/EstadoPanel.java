@@ -11,9 +11,13 @@ import java.awt.event.ActionListener;
 
 public class EstadoPanel extends JPanel implements ActionListener {
     JLabel estado;
+    private PanelComprador panelComprador;
+    private PanelExpendedor panelExpendedor;
 
     public EstadoPanel() {
-        estado = new JLabel("Seleccione su producto");
+
+
+        estado = new JLabel("Seleccione un producto");
         setLayout(null);
         //estado.setText("si apretas un producto aquí aparecerá su precio:)");
         estado.setForeground(new Color(229,43,80));
@@ -64,8 +68,8 @@ public class EstadoPanel extends JPanel implements ActionListener {
     public static void main(String[] args) throws NoHayProductoException, PagoInsuficienteException {
         ventanaTest v = new ventanaTest();
         //JFrame v = new JFrame();
-        EstadoPanel panel = new EstadoPanel();
-        v.add(panel);
+        //EstadoPanel panel = new EstadoPanel();
+        //v.add(panel);
         v.setVisible(true);
     }
 }

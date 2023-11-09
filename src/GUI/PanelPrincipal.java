@@ -16,10 +16,9 @@ public class PanelPrincipal extends JPanel {
 
 
     public PanelPrincipal () {
-
         estadoPanel = new EstadoPanel();
-        com = new PanelComprador();
-        exp = new PanelExpendedor ();
+        com = new PanelComprador(estadoPanel);
+        exp = new PanelExpendedor (com, estadoPanel);
 
 
         setLayout(null);

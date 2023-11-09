@@ -10,13 +10,20 @@ import java.awt.event.ActionListener;
 public class PanelExpendedor extends JPanel {
     private VentanaDepositoGeneral VentanaDeposito;
     private EstadoPanel estadoPanel;
-    public PanelExpendedor(){
+    private PanelComprador panelComprador;
+    private int seleccion;
+    public PanelExpendedor(PanelComprador panelComprador, EstadoPanel estadoPanel){
+
+        seleccion = 0;
 
         setLayout(new GridLayout(3, 3));
         setBounds(50, 50, 400, 300);
         setBackground(Color.pink);
 
-        estadoPanel = new EstadoPanel();
+        this.panelComprador = panelComprador;
+        this.estadoPanel = estadoPanel;
+
+        //panelComprador = new PanelComprador();
 
         Expendedor expendedor = new Expendedor(5);
         VentanaDeposito = new VentanaDepositoGeneral(expendedor);
@@ -57,52 +64,33 @@ public class PanelExpendedor extends JPanel {
             JButton botoncocacola = new JButton("1");
             add(botoncocacola);
             botoncocacola.setForeground(new Color(229,43,80));
-            botoncocacola.addActionListener(new ActionListener() {
+        //PanelComprador finalPanelComprador = panelComprador;
+        botoncocacola.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Comprador comprador = new Comprador(new Moneda1500(), 1, expendedor);
-                    VentanaDeposito.getCocacola();
+                    if(seleccion == 0){
+                        seleccion = 1;
+                        //botoncocacola.setForeground(Color.blue);
+                    } else if (seleccion == 1) {
+                        Comprador comprador = new Comprador(panelComprador.moneda, 1, expendedor);
+                        VentanaDeposito.getCocacola();
+                        panelComprador.moneda = null;
+                        estadoPanel.refreshEstadoPanel("Gracias Por su compraIngrese una moneda para volver a comprar");
+                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                        //botoncocacola.setForeground(new Color(229,43,80));
+                        seleccion = 0;
+                    }else{
+                        seleccion = 1;
+                       // botoncocacola.setForeground(Color.blue);
+                    }
 
 
-                } catch (PagoInsuficienteException ex) {
 
-                    // crea la ventana emergente de error
-                    JFrame frame = new JFrame("Error");
-                    frame.setSize(300, 200);
-                    frame.setLocationRelativeTo(null);
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                    JLabel label = new JLabel("Ha ocurrido un error:");
-                    JTextArea textArea = new JTextArea(ex.getMessage());
-                    textArea.setEditable(false);
 
-                    JPanel panel = new JPanel();
-                    panel.add(label);
-                    panel.add(textArea);
-
-                    frame.add(panel);
-                    frame.setVisible(true);
-                    throw new RuntimeException(ex);
-                } catch (NoHayProductoException ex) {
-
-                    // crea la ventana emergente de error
-                    JFrame frame = new JFrame("Error");
-                    frame.setSize(300, 200);
-                    frame.setLocationRelativeTo(null);
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                    JLabel label = new JLabel("Ha ocurrido un error:");
-                    JTextArea textArea = new JTextArea(ex.getMessage());
-                    textArea.setEditable(false);
-
-                    JPanel panel = new JPanel();
-                    panel.add(label);
-                    panel.add(textArea);
-
-                    frame.add(panel);
-                    frame.setVisible(true);
-                    throw new RuntimeException(ex);
+                } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                    errorAction(ex);
                 }
             }
             });
@@ -114,48 +102,24 @@ public class PanelExpendedor extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        Comprador comprador = new Comprador(new Moneda1500(),2, expendedor);
-                        VentanaDeposito.getSprite();
+                        if(seleccion == 0){
+                            seleccion = 2;
+                            //botonsprite.setForeground(Color.blue);
+                        } else if (seleccion == 2) {
+                            Comprador comprador = new Comprador(panelComprador.moneda,2, expendedor);
+                            VentanaDeposito.getSprite();
+                            panelComprador.moneda = null;
+                            compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                            //botonsprite.setForeground(new Color(229,43,80));
+                            seleccion = 0;
+                        }else{
+                            seleccion = 2;
+                        }
 
-                    } catch (PagoInsuficienteException ex) {
-                        // crea la ventana emergente de error
-                        JFrame frame = new JFrame("Error");
-                        frame.setSize(300, 200);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                        JLabel label = new JLabel("Ha ocurrido un error:");
-                        JTextArea textArea = new JTextArea(ex.getMessage());
-                        textArea.setEditable(false);
 
-                        JPanel panel = new JPanel();
-                        panel.add(label);
-                        panel.add(textArea);
-
-                        frame.add(panel);
-                        frame.setVisible(true);
-                        throw new RuntimeException(ex);
-
-                    } catch (NoHayProductoException ex) {
-                        // crea la ventana emergente de error
-                        JFrame frame = new JFrame("Error");
-                        frame.setSize(300, 200);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                        JLabel label = new JLabel("Ha ocurrido un error:");
-                        JTextArea textArea = new JTextArea(ex.getMessage());
-                        textArea.setEditable(false);
-
-                        JPanel panel = new JPanel();
-                        panel.add(label);
-                        panel.add(textArea);
-
-                        frame.add(panel);
-                        frame.setVisible(true);
-                        throw new RuntimeException(ex);
-
-                        //throw new RuntimeException(ex);
+                    } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                        errorAction(ex);
                     }
 
                 }
@@ -168,46 +132,23 @@ public class PanelExpendedor extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        Comprador comprador = new Comprador(new Moneda1500(),3, expendedor);
-                        VentanaDeposito.getFanta();
-                    } catch (PagoInsuficienteException ex) {
+                        if(seleccion == 0){
+                            seleccion = 3;
+                            //botonfanta.setForeground(Color.blue);
+                        } else if (seleccion == 3) {
+                            Comprador comprador = new Comprador(panelComprador.moneda,3, expendedor);
+                            VentanaDeposito.getFanta();
+                            panelComprador.moneda = null;
+                            compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                            //botonfanta.setForeground(new Color(229,43,80));
+                            seleccion = 0;
+                        }else{
+                            seleccion = 3;
+                        }
 
-                        // crea la ventana emergente de error
-                        JFrame frame = new JFrame("Error");
-                        frame.setSize(300, 200);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                        JLabel label = new JLabel("Ha ocurrido un error:");
-                        JTextArea textArea = new JTextArea(ex.getMessage());
-                        textArea.setEditable(false);
-
-                        JPanel panel = new JPanel();
-                        panel.add(label);
-                        panel.add(textArea);
-
-                        frame.add(panel);
-                        frame.setVisible(true);
-                        throw new RuntimeException(ex);
-                    } catch (NoHayProductoException ex) {
-
-                        // crea la ventana emergente de error
-                        JFrame frame = new JFrame("Error");
-                        frame.setSize(300, 200);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                        JLabel label = new JLabel("Ha ocurrido un error:");
-                        JTextArea textArea = new JTextArea(ex.getMessage());
-                        textArea.setEditable(false);
-
-                        JPanel panel = new JPanel();
-                        panel.add(label);
-                        panel.add(textArea);
-
-                        frame.add(panel);
-                        frame.setVisible(true);
-                        throw new RuntimeException(ex);
+                    }catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                        errorAction(ex);
                     }
 
                 }
@@ -220,46 +161,23 @@ public class PanelExpendedor extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        Comprador comprador = new Comprador(new Moneda1500(),5, expendedor);
-                        VentanaDeposito.getSuper8();
-                    } catch (PagoInsuficienteException ex) {
+                        if(seleccion == 0){
+                            seleccion = 4;
+                            //botonsuper8.setForeground(Color.blue);
+                        } else if (seleccion == 4) {
+                            Comprador comprador = new Comprador(panelComprador.moneda,5, expendedor);
+                            VentanaDeposito.getSuper8();
+                            panelComprador.moneda = null;
+                            compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                            //botonsuper8.setForeground(new Color(229,43,80));
+                            seleccion = 0;
+                        }else{
+                            seleccion = 4;
+                        }
 
-                        // crea la ventana emergente de error
-                        JFrame frame = new JFrame("Error");
-                        frame.setSize(300, 200);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                        JLabel label = new JLabel("Ha ocurrido un error:");
-                        JTextArea textArea = new JTextArea(ex.getMessage());
-                        textArea.setEditable(false);
-
-                        JPanel panel = new JPanel();
-                        panel.add(label);
-                        panel.add(textArea);
-
-                        frame.add(panel);
-                        frame.setVisible(true);
-                        throw new RuntimeException(ex);
-                    } catch (NoHayProductoException ex) {
-
-                        // crea la ventana emergente de error
-                        JFrame frame = new JFrame("Error");
-                        frame.setSize(300, 200);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                        JLabel label = new JLabel("Ha ocurrido un error:");
-                        JTextArea textArea = new JTextArea(ex.getMessage());
-                        textArea.setEditable(false);
-
-                        JPanel panel = new JPanel();
-                        panel.add(label);
-                        panel.add(textArea);
-
-                        frame.add(panel);
-                        frame.setVisible(true);
-                        throw new RuntimeException(ex);
+                    }catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                        errorAction(ex);
                     }
 
                 }
@@ -272,46 +190,23 @@ public class PanelExpendedor extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        Comprador comprador = new Comprador(new Moneda1500(),4, expendedor);
-                        VentanaDeposito.getSnickers();
-                    } catch (PagoInsuficienteException ex) {
+                        if(seleccion == 0){
+                            seleccion = 5;
+                            //botonsnickers.setForeground(Color.blue);
+                        } else if (seleccion == 5) {
+                            Comprador comprador = new Comprador(panelComprador.moneda,4, expendedor);
+                            VentanaDeposito.getSnickers();
+                            panelComprador.moneda = null;
+                            compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                            //botonsnickers.setForeground(new Color(229,43,80));
+                            seleccion = 0;
+                        }else{
+                            seleccion = 5;
+                        }
 
-                        // crea la ventana emergente de error
-                        JFrame frame = new JFrame("Error");
-                        frame.setSize(300, 200);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-                        JLabel label = new JLabel("Ha ocurrido un error:");
-                        JTextArea textArea = new JTextArea(ex.getMessage());
-                        textArea.setEditable(false);
-
-                        JPanel panel = new JPanel();
-                        panel.add(label);
-                        panel.add(textArea);
-
-                        frame.add(panel);
-                        frame.setVisible(true);
-                        throw new RuntimeException(ex);
-                    } catch (NoHayProductoException ex) {
-
-                        // crea la ventana emergente de error
-                        JFrame frame = new JFrame("Error");
-                        frame.setSize(300, 200);
-                        frame.setLocationRelativeTo(null);
-                        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-                        JLabel label = new JLabel("Ha ocurrido un error:");
-                        JTextArea textArea = new JTextArea(ex.getMessage());
-                        textArea.setEditable(false);
-
-                        JPanel panel = new JPanel();
-                        panel.add(label);
-                        panel.add(textArea);
-
-                        frame.add(panel);
-                        frame.setVisible(true);
-                        throw new RuntimeException(ex);
+                    }catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                        errorAction(ex);
                     }
                 }
             });
@@ -367,14 +262,39 @@ public class PanelExpendedor extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
     }
-    public static void main(String[] args) throws NoHayProductoException, PagoInsuficienteException {
-        //JFrame frame = new JFrame("Ejemplo de impresión con JPanel");
-        ventanaTest v = new ventanaTest();
-        PanelExpendedor panel = new PanelExpendedor();
-        v.add(panel);
-        //frame.add(panel);
-        //panel.VentanaDeposito.getVentanaDeposito();
+    public void errorAction(Exception ex){
 
+        // crea la ventana emergente de error
+        JFrame frame = new JFrame("Error");
+        frame.setSize(300, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JLabel label = new JLabel("Ha ocurrido un error:");
+        JTextArea textArea = new JTextArea(ex.getMessage());
+        textArea.setEditable(false);
+
+        JPanel panel = new JPanel();
+        panel.add(label);
+        panel.add(textArea);
+
+        frame.add(panel);
+        frame.setVisible(true);
+        throw new RuntimeException(ex);
+    }
+    public void compraAction(String a, int b){
+        JFrame frame = new JFrame("Compra realizada con exito");
+        frame.setSize(500, 100);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JLabel label = new JLabel("Gracias por su compra de: " + a +" Su vuelto es: "+ b);
+
+        JPanel panel = new JPanel();
+        panel.add(label);
+
+        frame.add(panel);
+        frame.setVisible(true);
     }
 }
 
