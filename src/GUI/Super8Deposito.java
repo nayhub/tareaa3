@@ -3,6 +3,7 @@ package GUI;
 import Tarea2.Expendedor;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Super8Deposito extends VentanaDeposito {
     private Expendedor expendedor;
@@ -13,18 +14,20 @@ public class Super8Deposito extends VentanaDeposito {
 
     @Override
     public void agregarElemento() {
-        elementos.add("Super8Deposito");
+        elementos.add("Super8");
         repaint();
     }
-    public JFrame getVentanaDeposito(String a){
-        JFrame frame = new JFrame("Deposito");
-        CocacolaDeposito graficador = new CocacolaDeposito(expendedor);
-        graficador.agregarElemento();
-        frame.add(graficador);
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        int x = 50;
+        int y = 50;
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 800);
-        frame.setVisible(true);
-        return frame;
+        for (String elemento : elementos) {
+            g.setColor(Color.BLACK);
+            g.fillRect(x, y, 58, 30);
+            g.setColor(Color.YELLOW);
+            g.drawString(elemento.toString(), x + 3, y + 20);
+            x += 60;
+        }
     }
 }
