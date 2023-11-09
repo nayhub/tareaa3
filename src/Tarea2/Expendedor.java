@@ -15,12 +15,14 @@ public class Expendedor {
     private Deposito<Producto> snikers;
     private DepositoM monVu;
     private int precio;
+    public int numProducto;
 
     /**
      * Constructor de la clase Tarea2.Expendedor.
      * @param numBebidas El número de bebidas disponibles en el expendedor.
      */
     public Expendedor(int numBebidas) {
+        numProducto = numBebidas;
         coca = new Deposito<>();
         sprite = new Deposito<>();
         fanta = new Deposito<>();
@@ -153,5 +155,36 @@ public class Expendedor {
      */
     public Moneda getVuelto() {
         return monVu.getMoneda();
+    }
+    public void recargarProductos(){
+
+        //elimina todos los productos de todos los depositos, para que queden en el mismo valor (0)
+        for (int i = 0; i < numProducto; i++) {
+            Producto cc = new CocaCola(100 + i);
+            coca.removeProducto();
+            Producto sp = new Sprite(200 + i);
+            sprite.removeProducto();
+            Producto ft = new Fanta(300 + i);
+            fanta.removeProducto();
+            Producto s8 = new Super8(i);
+            Super8.removeProducto();
+            Producto sn = new Snickers((50 + i));
+            snikers.removeProducto();
+
+        }
+        //Recarga los depositos
+        for (int i = 0; i < numProducto; i++) {
+            Producto cc = new CocaCola(100 + i);
+            coca.addProducto(cc);
+            Producto sp = new Sprite(200 + i);
+            sprite.addProducto(sp);
+            Producto ft = new Fanta(300 + i);
+            fanta.addProducto(ft);
+            Producto s8 = new Super8(i);
+            Super8.addProducto(s8);
+            Producto sn = new Snickers((50 + i));
+            snikers.addProducto(sn);
+
+        }
     }
 }

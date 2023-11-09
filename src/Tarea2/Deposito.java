@@ -27,4 +27,10 @@ public class Deposito<T>{
         T b = al.remove(0);
         return b;
     }
+    public void removeProducto(){
+        if(al.size()==0){
+        }else{
+            al.remove(0);
+        }
+    }
 }

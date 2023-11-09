@@ -34,12 +34,15 @@ public class VentanaDepositoGeneral {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
+                //se recargan todos los depositos
+
                 for(int i=0; i<expendedor.numProducto; i++){
                     cocacolaDeposito.borrarElemento();
                     super8Deposito.borrarElemento();
                     spriteDeposito.borrarElemento();
                     fantaDeposito.borrarElemento();
                     snickersDeposito.borrarElemento();
+
                 }
                 for(int i=0; i<expendedor.numProducto;i++){
                     cocacolaDeposito.agregarElemento();
@@ -48,6 +51,8 @@ public class VentanaDepositoGeneral {
                     fantaDeposito.agregarElemento();
                     snickersDeposito.agregarElemento();
                 }
+
+                expendedor.recargarProductos();
 
             }
         });
