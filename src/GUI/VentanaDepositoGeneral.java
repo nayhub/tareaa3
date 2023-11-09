@@ -9,27 +9,31 @@ import java.awt.event.MouseEvent;
 
 public class VentanaDepositoGeneral {
     private Expendedor expendedor;
+    private PanelComprador panelComprador;
 
     private CocacolaDeposito cocacolaDeposito;
     private Super8Deposito super8Deposito;
     private SpriteDeposito spriteDeposito;
     private FantaDeposito fantaDeposito;
     private SnickersDeposito snickersDeposito;
-    public VentanaDepositoGeneral(Expendedor expendedor){
+    private MonedaDeposito monedaDeposito;
+    public VentanaDepositoGeneral(Expendedor expendedor, MonedaDeposito monedaDeposito){
         this.expendedor = expendedor;
+        this.monedaDeposito = monedaDeposito;
 
-
+       // monedaDeposito = new MonedaDeposito(expendedor, panelComprador.moneda);
         cocacolaDeposito = new CocacolaDeposito(expendedor);
         super8Deposito = new Super8Deposito(expendedor);
         spriteDeposito = new SpriteDeposito(expendedor);
         fantaDeposito = new FantaDeposito(expendedor);
         snickersDeposito = new SnickersDeposito(expendedor);
 
+
     }
     public JFrame getVentanaDeposito(){
         JFrame frame = new JFrame("Deposito");
 
-        frame.setLayout(new GridLayout(5,1) );
+        frame.setLayout(new GridLayout(6,1) );
         frame.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -77,6 +81,7 @@ public class VentanaDepositoGeneral {
         frame.add(spriteDeposito);
         frame.add(fantaDeposito);
         frame.add(snickersDeposito);
+        //frame.add(monedaDeposito);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 800);

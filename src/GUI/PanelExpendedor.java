@@ -12,8 +12,14 @@ public class PanelExpendedor extends JPanel {
     private EstadoPanel estadoPanel;
     private PanelComprador panelComprador;
     private int seleccion;
-    public PanelExpendedor(PanelComprador panelComprador, EstadoPanel estadoPanel){
+    private MonedaDeposito monedaDeposito;
 
+    //Array de Jbutton para configurar cuando un boton está seleccionado
+    private JButton[] botones;
+
+    public PanelExpendedor(PanelComprador panelComprador, EstadoPanel estadoPanel) {
+
+        botones = new JButton[5];
         seleccion = 0;
 
         setLayout(new GridLayout(3, 3));
@@ -22,17 +28,18 @@ public class PanelExpendedor extends JPanel {
 
         this.panelComprador = panelComprador;
         this.estadoPanel = estadoPanel;
+        monedaDeposito = new MonedaDeposito(panelComprador);
 
         //panelComprador = new PanelComprador();
 
         Expendedor expendedor = new Expendedor(5);
-        VentanaDeposito = new VentanaDepositoGeneral(expendedor);
+        VentanaDeposito = new VentanaDepositoGeneral(expendedor, monedaDeposito);
         VentanaDeposito.getVentanaDeposito();
 
         JLabel producto = new JLabel();
         //JLabel donde se devuelve el producto
         producto.setText("aquí está su producto!!!");
-        producto.setForeground(new Color(229,43,80));
+        producto.setForeground(new Color(229, 43, 80));
         producto.setFont(new Font("Elephant", Font.PLAIN, 12));
         producto.setOpaque(true);
         producto.setBackground(new Color(255, 205, 205));
@@ -49,7 +56,7 @@ public class PanelExpendedor extends JPanel {
 
         //aquí es basicamente donde se muestra el precio y esas cosas, es un JLabel
         precios.setText("Seleccione un Producto:)");
-        precios.setForeground(new Color(229,43,80));
+        precios.setForeground(new Color(229, 43, 80));
         precios.setFont(new Font("Elephant", Font.PLAIN, 12));
         precios.setBounds(500, 15, 300, 80);
         precios.setOpaque(true);
@@ -58,163 +65,163 @@ public class PanelExpendedor extends JPanel {
         precios.setVerticalAlignment(SwingConstants.CENTER);
 
 
-
-
-            //creando botones y agregandolos al panel del expendedor
-            JButton botoncocacola = new JButton("1");
-            add(botoncocacola);
-            botoncocacola.setForeground(new Color(229,43,80));
-        //PanelComprador finalPanelComprador = panelComprador;
+        //creando botones y agregandolos al panel del expendedor
+        JButton botoncocacola = new JButton("1");
+        botones[0] = botoncocacola;
+        add(botoncocacola);
+        botoncocacola.setForeground(new Color(229, 43, 80));
         botoncocacola.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if(seleccion == 0){
+                    //seleccion 0 es cuando seleccionas por primera vez y seleccion 1 para cuando seleccionas por segunda vez para comprar
+                    if (seleccion == 0) {
                         seleccion = 1;
-                        //botoncocacola.setForeground(Color.blue);
                     } else if (seleccion == 1) {
                         Comprador comprador = new Comprador(panelComprador.moneda, 1, expendedor);
                         VentanaDeposito.getCocacola();
                         panelComprador.moneda = null;
-                        estadoPanel.refreshEstadoPanel("Gracias Por su compraIngrese una moneda para volver a comprar");
-                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                        //botoncocacola.setForeground(new Color(229,43,80));
+                        estadoPanel.refreshEstadoPanel("Seleccione otro producto para volver a comprar");
+                        compraAction(comprador.queConsumiste(), (comprador.cuantoVuelto()));
                         seleccion = 0;
-                    }else{
+                    } else {
                         seleccion = 1;
-                       // botoncocacola.setForeground(Color.blue);
+                    }
+
+                } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                    errorAction(ex);
+                }
+            }
+        });
+        botoncocacola.addActionListener(new ButtonClickListener());
+
+        JButton botonsprite = new JButton("             2");
+        botones[1] = botonsprite;
+        add(botonsprite);
+        botonsprite.setForeground(new Color(229, 43, 80));
+        botonsprite.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (seleccion == 0) {
+                        seleccion = 2;
+                        //botonsprite.setForeground(Color.blue);
+                    } else if (seleccion == 2) {
+                        Comprador comprador = new Comprador(panelComprador.moneda, 2, expendedor);
+                        VentanaDeposito.getSprite();
+                        panelComprador.moneda = null;
+                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                        //botonsprite.setForeground(new Color(229,43,80));
+                        seleccion = 0;
+                    } else {
+                        seleccion = 2;
                     }
 
 
+                } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                    errorAction(ex);
+                }
 
+            }
+        });
+        botonsprite.addActionListener(new ButtonClickListener());
+
+        JButton botonfanta = new JButton("3");
+        botones[2] = botonfanta;
+        add(botonfanta);
+        botonfanta.setForeground(new Color(229, 43, 80));
+        botonfanta.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (seleccion == 0) {
+                        seleccion = 3;
+                        //botonfanta.setForeground(Color.blue);
+                    } else if (seleccion == 3) {
+                        Comprador comprador = new Comprador(panelComprador.moneda, 3, expendedor);
+                        VentanaDeposito.getFanta();
+                        panelComprador.moneda = null;
+                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                        //botonfanta.setForeground(new Color(229,43,80));
+                        seleccion = 0;
+                    } else {
+                        seleccion = 3;
+                    }
+
+
+                } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                    errorAction(ex);
+                }
+
+            }
+        });
+        botonfanta.addActionListener(new ButtonClickListener());
+
+        JButton botonsuper8 = new JButton("4");
+        botones[3] = botonsuper8;
+        add(botonsuper8);
+        botonsuper8.setForeground(new Color(229, 43, 80));
+        botonsuper8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (seleccion == 0) {
+                        seleccion = 4;
+                        //botonsuper8.setForeground(Color.blue);
+                    } else if (seleccion == 4) {
+                        Comprador comprador = new Comprador(panelComprador.moneda, 5, expendedor);
+                        VentanaDeposito.getSuper8();
+                        panelComprador.moneda = null;
+                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                        //botonsuper8.setForeground(new Color(229,43,80));
+                        seleccion = 0;
+                    } else {
+                        seleccion = 4;
+                    }
+
+
+                } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                    errorAction(ex);
+                }
+
+            }
+        });
+        botonsuper8.addActionListener(new ButtonClickListener());
+
+        JButton botonsnickers = new JButton("       5");
+        botones[4] = botonsnickers;
+        add(botonsnickers);
+        botonsnickers.setForeground(new Color(229, 43, 80));
+        botonsnickers.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (seleccion == 0) {
+                        seleccion = 5;
+                        //botonsnickers.setForeground(Color.blue);
+                    } else if (seleccion == 5) {
+                        Comprador comprador = new Comprador(panelComprador.moneda, 4, expendedor);
+                        VentanaDeposito.getSnickers();
+                        panelComprador.moneda = null;
+                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
+                        //botonsnickers.setForeground(new Color(229,43,80));
+                        seleccion = 0;
+                    } else {
+                        seleccion = 5;
+                    }
 
 
                 } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
                     errorAction(ex);
                 }
             }
-            });
+        });
+        botonsnickers.addActionListener(new ButtonClickListener());
 
-            JButton botonsprite = new JButton("             2");
-            add(botonsprite);
-            botonsprite.setForeground(new Color(229,43,80));
-            botonsprite.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        if(seleccion == 0){
-                            seleccion = 2;
-                            //botonsprite.setForeground(Color.blue);
-                        } else if (seleccion == 2) {
-                            Comprador comprador = new Comprador(panelComprador.moneda,2, expendedor);
-                            VentanaDeposito.getSprite();
-                            panelComprador.moneda = null;
-                            compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                            //botonsprite.setForeground(new Color(229,43,80));
-                            seleccion = 0;
-                        }else{
-                            seleccion = 2;
-                        }
-
-
-
-                    } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
-                        errorAction(ex);
-                    }
-
-                }
-            });
-
-            JButton botonfanta = new JButton("3");
-            add(botonfanta);
-            botonfanta.setForeground(new Color(229,43,80));
-            botonfanta.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        if(seleccion == 0){
-                            seleccion = 3;
-                            //botonfanta.setForeground(Color.blue);
-                        } else if (seleccion == 3) {
-                            Comprador comprador = new Comprador(panelComprador.moneda,3, expendedor);
-                            VentanaDeposito.getFanta();
-                            panelComprador.moneda = null;
-                            compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                            //botonfanta.setForeground(new Color(229,43,80));
-                            seleccion = 0;
-                        }else{
-                            seleccion = 3;
-                        }
-
-
-                    }catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
-                        errorAction(ex);
-                    }
-
-                }
-            });
-
-            JButton botonsuper8 = new JButton("4");
-            add(botonsuper8);
-            botonsuper8.setForeground(new Color(229,43,80));
-            botonsuper8.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        if(seleccion == 0){
-                            seleccion = 4;
-                            //botonsuper8.setForeground(Color.blue);
-                        } else if (seleccion == 4) {
-                            Comprador comprador = new Comprador(panelComprador.moneda,5, expendedor);
-                            VentanaDeposito.getSuper8();
-                            panelComprador.moneda = null;
-                            compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                            //botonsuper8.setForeground(new Color(229,43,80));
-                            seleccion = 0;
-                        }else{
-                            seleccion = 4;
-                        }
-
-
-                    }catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
-                        errorAction(ex);
-                    }
-
-                }
-            });
-
-            JButton botonsnickers = new JButton("       5");
-            add(botonsnickers);
-            botonsnickers.setForeground(new Color(229,43,80));
-            botonsnickers.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        if(seleccion == 0){
-                            seleccion = 5;
-                            //botonsnickers.setForeground(Color.blue);
-                        } else if (seleccion == 5) {
-                            Comprador comprador = new Comprador(panelComprador.moneda,4, expendedor);
-                            VentanaDeposito.getSnickers();
-                            panelComprador.moneda = null;
-                            compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                            //botonsnickers.setForeground(new Color(229,43,80));
-                            seleccion = 0;
-                        }else{
-                            seleccion = 5;
-                        }
-
-
-                    }catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
-                        errorAction(ex);
-                    }
-                }
-            });
-
-            JButton botonquenohacenada = new JButton();
-            add(botonquenohacenada);
-            botonquenohacenada.setForeground(new Color(229,43,80));
-            botonquenohacenada.setEnabled(false);
+        JButton botonquenohacenada = new JButton();
+        add(botonquenohacenada);
+        botonquenohacenada.setForeground(new Color(229, 43, 80));
+        botonquenohacenada.setEnabled(false);
 
 
         //aquí se le agrega un listener a todos los botones
@@ -226,33 +233,33 @@ public class PanelExpendedor extends JPanel {
 
 
         botoncocacola.setBackground(Color.pink);
-            botonsprite.setBackground(Color.PINK);
-            botonfanta.setBackground(Color.PINK);
-            botonsuper8.setBackground(Color.PINK);
-            botonsnickers.setBackground(Color.PINK);
-            botonquenohacenada.setBackground(Color.PINK);
+        botonsprite.setBackground(Color.PINK);
+        botonfanta.setBackground(Color.PINK);
+        botonsuper8.setBackground(Color.PINK);
+        botonsnickers.setBackground(Color.PINK);
+        botonquenohacenada.setBackground(Color.PINK);
 
-            //agregar imagenes de los productos
-            ImageIcon cocacola = new ImageIcon("src/Images/ccocacola.png");
-            ImageIcon sprite = new ImageIcon("src/Images/spritee.png");
-            ImageIcon fanta = new ImageIcon("src/Images/fanta.png");
-            ImageIcon super8 = new ImageIcon("src/Images/super8.png");
-            ImageIcon snickers = new ImageIcon("src/Images/snickers.png");
+        //agregar imagenes de los productos
+        ImageIcon cocacola = new ImageIcon("src/Images/ccocacola.png");
+        ImageIcon sprite = new ImageIcon("src/Images/spritee.png");
+        ImageIcon fanta = new ImageIcon("src/Images/fanta.png");
+        ImageIcon super8 = new ImageIcon("src/Images/super8.png");
+        ImageIcon snickers = new ImageIcon("src/Images/snickers.png");
 
-            //agregar las imagenes a los botones
-            botoncocacola.setIcon(new ImageIcon(cocacola.getImage().getScaledInstance(130, 100, Image.SCALE_SMOOTH)));
-            botonsprite.setIcon(new ImageIcon(sprite.getImage().getScaledInstance(50, 100, Image.SCALE_SMOOTH)));
-            botonfanta.setIcon(new ImageIcon(fanta.getImage().getScaledInstance(130, 100, Image.SCALE_SMOOTH)));
-            botonsuper8.setIcon(new ImageIcon(super8.getImage().getScaledInstance(100, 130, Image.SCALE_SMOOTH)));
-            botonsnickers.setIcon(new ImageIcon(snickers.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+        //agregar las imagenes a los botones
+        botoncocacola.setIcon(new ImageIcon(cocacola.getImage().getScaledInstance(130, 100, Image.SCALE_SMOOTH)));
+        botonsprite.setIcon(new ImageIcon(sprite.getImage().getScaledInstance(50, 100, Image.SCALE_SMOOTH)));
+        botonfanta.setIcon(new ImageIcon(fanta.getImage().getScaledInstance(130, 100, Image.SCALE_SMOOTH)));
+        botonsuper8.setIcon(new ImageIcon(super8.getImage().getScaledInstance(100, 130, Image.SCALE_SMOOTH)));
+        botonsnickers.setIcon(new ImageIcon(snickers.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
 
-            //esto es para sacarle un borde feo alrededor de las imagenes
-            botoncocacola.setFocusable(false);
-            botonsprite.setFocusable(false);
-            botonfanta.setFocusable(false);
-            botonsuper8.setFocusable(false);
-            botonsnickers.setFocusable(false);
-            botonquenohacenada.setFocusable(false);
+        //esto es para sacarle un borde feo alrededor de las imagenes
+        botoncocacola.setFocusable(false);
+        botonsprite.setFocusable(false);
+        botonfanta.setFocusable(false);
+        botonsuper8.setFocusable(false);
+        botonsnickers.setFocusable(false);
+        botonquenohacenada.setFocusable(false);
 
         //VentanaDeposito.getVentanaDeposito();
 
@@ -262,7 +269,8 @@ public class PanelExpendedor extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
     }
-    public void errorAction(Exception ex){
+
+    public void errorAction(Exception ex) {
 
         // crea la ventana emergente de error
         JFrame frame = new JFrame("Error");
@@ -282,19 +290,37 @@ public class PanelExpendedor extends JPanel {
         frame.setVisible(true);
         throw new RuntimeException(ex);
     }
-    public void compraAction(String a, int b){
+
+    public void compraAction(String a, int b) {
         JFrame frame = new JFrame("Compra realizada con exito");
         frame.setSize(500, 100);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        JLabel label = new JLabel("Gracias por su compra de: " + a +" Su vuelto es: "+ b);
+        JLabel label = new JLabel("Gracias por su compra de: " + a + " Su vuelto es: " + b);
 
         JPanel panel = new JPanel();
         panel.add(label);
 
         frame.add(panel);
         frame.setVisible(true);
+    }
+
+    private class ButtonClickListener implements ActionListener {
+        int i = 0;
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton source = (JButton) e.getSource();
+
+            // Cambiar el fondo de todos los botones
+            for (JButton button : botones) {
+                if (button == source) {
+                    button.setBackground(Color.orange);  // Cambiar color del botón seleccionado
+                } else {
+                    button.setBackground(Color.pink);    // Cambiar color de los demás botones
+                }
+            }
+        }
     }
 }
 
