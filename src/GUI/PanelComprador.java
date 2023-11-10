@@ -8,12 +8,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * PanelComprador es una clase que extiende JPanel y representa el panel del comprador del expendedor.
+ * Contiene los botones de moneda y el estado del panel.
+ */
 public class PanelComprador extends JPanel {
-    private Comprador comprador;
+    //private Comprador comprador;
     public Moneda moneda;
     public int totalmonedasArraylist;
     public ArrayList <Moneda> monedasArraylist;
     private EstadoPanel estadoPanel;
+
+    /**
+     * Constructor de la clase PanelComprador.
+     * Crea un nuevo objeto PanelComprador con los botones de moneda y el estado del panel.
+     * @param estadoPanel El estado del panel.
+     */
 
     public PanelComprador(EstadoPanel estadoPanel){
         this.estadoPanel = estadoPanel;
@@ -24,8 +34,6 @@ public class PanelComprador extends JPanel {
         setLayout(new GridLayout(2, 2));
         setBounds(500, 100, 300, 230);
         setBackground(Color.WHITE);
-
-
 
         //añadir botones para panelcomprador
         JButton moneda100 = new JButton("100");
@@ -47,7 +55,6 @@ public class PanelComprador extends JPanel {
                 }
             });
 
-
         JButton moneda500 = new JButton("500");
         moneda500.setForeground(Color.BLACK);
         moneda500.setBackground(Color.PINK);
@@ -66,9 +73,6 @@ public class PanelComprador extends JPanel {
                     estadoPanel.refreshEstadoPanel("seleccione el producto");
                 }
             });
-
-
-
 
         JButton moneda1000 = new JButton("1000");
         moneda1000.setForeground(Color.BLACK);
@@ -89,7 +93,6 @@ public class PanelComprador extends JPanel {
             }
         });
 
-
         JButton moneda1500 = new JButton("1500");
         moneda1500.setForeground(Color.BLACK);
         moneda1500.setBackground(Color.PINK);
@@ -108,13 +111,11 @@ public class PanelComprador extends JPanel {
             }
         });
 
-
         //agregar las imagenes para las monedas
         ImageIcon moneda1 = new ImageIcon("src/Images/mmoneda.png");
         ImageIcon moneda2 = new ImageIcon("src/Images/mmoneda.png");
         ImageIcon moneda3 = new ImageIcon("src/Images/mmoneda.png");
         ImageIcon moneda4 = new ImageIcon("src/Images/mmoneda.png");
-
 
         //agregar imagenes a las monedas
         moneda100.setIcon(new ImageIcon(moneda1.getImage().getScaledInstance(100, 75, Image.SCALE_SMOOTH)));
@@ -124,12 +125,14 @@ public class PanelComprador extends JPanel {
 
     }
 
+    /**
+     * Este método se encarga de dibujar los componentes del panel.
+     * @param g El objeto Graphics utilizado para dibujar los componentes.
+     */
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-    }
-
-
+public void paint(Graphics g) {
+    super.paint(g);
+}
     public EstadoPanel getEstadoPanel(){
         return estadoPanel;
     }
@@ -140,7 +143,5 @@ public class PanelComprador extends JPanel {
         }
         return totalmonedasArraylist;
     }
-
-
 }
 
