@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * PanelExpendedor es una clase que extiende JPanel y representa el panel expendedor de la aplicación.
+ * Contiene los botones de selección de producto, el estado del panel y el depósito de monedas.
+ */
 public class PanelExpendedor extends JPanel {
     private VentanaDepositoGeneral VentanaDeposito;
     private EstadoPanel estadoPanel;
@@ -18,6 +22,12 @@ public class PanelExpendedor extends JPanel {
     //Array de Jbutton para configurar cuando un boton está seleccionado
     private JButton[] botones;
 
+    /**
+     * Constructor de la clase PanelExpendedor.
+     * Crea un nuevo objeto PanelExpendedor con los botones de selección de producto, el estado del panel y el depósito de monedas.
+     * @param panelComprador El panel del comprador.
+     * @param estadoPanel El estado del panel.
+     */
     public PanelExpendedor(PanelComprador panelComprador, EstadoPanel estadoPanel) {
 
         botones = new JButton[5];

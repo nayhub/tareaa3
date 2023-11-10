@@ -7,6 +7,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * VentanaDepositoGeneral es una clase que representa la ventana de depósitos del expendedor.
+ * Contiene los depósitos de monedas y productos.
+ */
 public class VentanaDepositoGeneral {
     private Expendedor expendedor;
     private PanelComprador panelComprador;
@@ -17,7 +21,18 @@ public class VentanaDepositoGeneral {
     private FantaDeposito fantaDeposito;
     private SnickersDeposito snickersDeposito;
     private MonedaDeposito monedaDeposito;
+<<<<<<< HEAD
     public VentanaDepositoGeneral(Expendedor expendedor){
+=======
+
+    /**
+     * Constructor de la clase VentanaDepositoGeneral.
+     * Crea un nuevo objeto VentanaDepositoGeneral con los depósitos de monedas y productos.
+     * @param expendedor El expendedor de la aplicación.
+     * @param monedaDeposito El depósito de monedas de la aplicación.
+     */
+    public VentanaDepositoGeneral(Expendedor expendedor, MonedaDeposito monedaDeposito){
+>>>>>>> 0681a34a80a93321d70d775623668c61c2ebb9b1
         this.expendedor = expendedor;
         //this.monedaDeposito = monedaDeposito;
 
@@ -29,6 +44,12 @@ public class VentanaDepositoGeneral {
 
 
     }
+
+    /**
+     * Devuelve un objeto JFrame que representa la ventana de depósito del expendedor.
+     * La ventana contiene los depósitos de monedas y productos.
+     * @return Un objeto JFrame que representa la ventana de depósito del expendedor.
+     */
     public JFrame getVentanaDeposito(){
         JFrame frame = new JFrame("Deposito");
 
@@ -87,7 +108,6 @@ public class VentanaDepositoGeneral {
         frame.setVisible(true);
         return frame;
     }
-
     public void getCocacola(){
         cocacolaDeposito.borrarElemento();
     }
