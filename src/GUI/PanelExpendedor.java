@@ -33,7 +33,7 @@ public class PanelExpendedor extends JPanel {
         //panelComprador = new PanelComprador();
 
         Expendedor expendedor = new Expendedor(5);
-        VentanaDeposito = new VentanaDepositoGeneral(expendedor, monedaDeposito);
+        VentanaDeposito = new VentanaDepositoGeneral(expendedor);
         VentanaDeposito.getVentanaDeposito();
 
         JLabel producto = new JLabel();
@@ -78,17 +78,23 @@ public class PanelExpendedor extends JPanel {
                     if (seleccion == 0) {
                         seleccion = 1;
                     } else if (seleccion == 1) {
-                        Comprador comprador = new Comprador(panelComprador.moneda, 1, expendedor);
-                        VentanaDeposito.getCocacola();
-                        panelComprador.moneda = null;
-                        estadoPanel.refreshEstadoPanel("Seleccione otro producto para volver a comprar");
-                        compraAction(comprador.queConsumiste(), (comprador.cuantoVuelto()));
+                        if((monedaDeposito.getMonedaTotal().getValor()) == 0){
+                            throw new PagoIncorrectoException("Pago Invalido, ingrese una moneda");
+                        }else{
+                            Comprador comprador = new Comprador(panelComprador.getMonedaDeposito().getMonedaTotal(), 1, expendedor);
+                            VentanaDeposito.getCocacola();
+                            //panelComprador.moneda = null;
+                            estadoPanel.refreshEstadoPanel("Seleccione otro producto para volver a comprar");
+                            compraAction(comprador.queConsumiste(), (monedaDeposito.getMonedaTotal().getValor() - seleccionarProducto.coca.getValor()));
+                            monedaDeposito.borrarMonedas();
+                            panelComprador.reiniciarprecioTotalmonedasArraylist();
+                        }
                         seleccion = 0;
                     } else {
                         seleccion = 1;
                     }
 
-                } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException ex) {
+                } catch (PagoInsuficienteException | NoHayProductoException | PagoIncorrectoException | ArithmeticException ex) {
                     errorAction(ex);
                 }
             }
@@ -105,13 +111,17 @@ public class PanelExpendedor extends JPanel {
                 try {
                     if (seleccion == 0) {
                         seleccion = 2;
-                        //botonsprite.setForeground(Color.blue);
                     } else if (seleccion == 2) {
-                        Comprador comprador = new Comprador(panelComprador.moneda, 2, expendedor);
-                        VentanaDeposito.getSprite();
-                        panelComprador.moneda = null;
-                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                        //botonsprite.setForeground(new Color(229,43,80));
+                        if((monedaDeposito.getMonedaTotal().getValor()) == 0){
+                            throw new PagoIncorrectoException("Pago Invalido, ingrese una moneda");
+                        }else{
+                            Comprador comprador = new Comprador(panelComprador.getMonedaDeposito().getMonedaTotal(), 2, expendedor);
+                            VentanaDeposito.getSprite();
+                            panelComprador.moneda = null;
+                            compraAction(comprador.queConsumiste(), (monedaDeposito.getMonedaTotal().getValor() - seleccionarProducto.sprite.getValor()));
+                            monedaDeposito.borrarMonedas();
+                            panelComprador.reiniciarprecioTotalmonedasArraylist();
+                        }
                         seleccion = 0;
                     } else {
                         seleccion = 2;
@@ -136,13 +146,17 @@ public class PanelExpendedor extends JPanel {
                 try {
                     if (seleccion == 0) {
                         seleccion = 3;
-                        //botonfanta.setForeground(Color.blue);
                     } else if (seleccion == 3) {
-                        Comprador comprador = new Comprador(panelComprador.moneda, 3, expendedor);
-                        VentanaDeposito.getFanta();
-                        panelComprador.moneda = null;
-                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                        //botonfanta.setForeground(new Color(229,43,80));
+                        if((monedaDeposito.getMonedaTotal().getValor()) == 0){
+                            throw new PagoIncorrectoException("Pago Invalido, ingrese una moneda");
+                        }else {
+                            Comprador comprador = new Comprador(panelComprador.getMonedaDeposito().getMonedaTotal(), 3, expendedor);
+                            VentanaDeposito.getFanta();
+                            panelComprador.moneda = null;
+                            compraAction(comprador.queConsumiste(), (monedaDeposito.getMonedaTotal().getValor() - seleccionarProducto.fanta.getValor()));
+                            monedaDeposito.borrarMonedas();
+                            panelComprador.reiniciarprecioTotalmonedasArraylist();
+                        }
                         seleccion = 0;
                     } else {
                         seleccion = 3;
@@ -167,13 +181,17 @@ public class PanelExpendedor extends JPanel {
                 try {
                     if (seleccion == 0) {
                         seleccion = 4;
-                        //botonsuper8.setForeground(Color.blue);
                     } else if (seleccion == 4) {
-                        Comprador comprador = new Comprador(panelComprador.moneda, 5, expendedor);
-                        VentanaDeposito.getSuper8();
-                        panelComprador.moneda = null;
-                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                        //botonsuper8.setForeground(new Color(229,43,80));
+                        if((monedaDeposito.getMonedaTotal().getValor()) == 0){
+                            throw new PagoIncorrectoException("Pago Invalido, ingrese una moneda");
+                        }else {
+                            Comprador comprador = new Comprador(panelComprador.getMonedaDeposito().getMonedaTotal(), 5, expendedor);
+                            VentanaDeposito.getSuper8();
+                            panelComprador.moneda = null;
+                            compraAction(comprador.queConsumiste(), (monedaDeposito.getMonedaTotal().getValor() - seleccionarProducto.super8.getValor()));
+                            monedaDeposito.borrarMonedas();
+                            panelComprador.reiniciarprecioTotalmonedasArraylist();
+                        }
                         seleccion = 0;
                     } else {
                         seleccion = 4;
@@ -198,13 +216,17 @@ public class PanelExpendedor extends JPanel {
                 try {
                     if (seleccion == 0) {
                         seleccion = 5;
-                        //botonsnickers.setForeground(Color.blue);
                     } else if (seleccion == 5) {
-                        Comprador comprador = new Comprador(panelComprador.moneda, 4, expendedor);
-                        VentanaDeposito.getSnickers();
-                        panelComprador.moneda = null;
-                        compraAction(comprador.queConsumiste(), comprador.cuantoVuelto());
-                        //botonsnickers.setForeground(new Color(229,43,80));
+                        if((monedaDeposito.getMonedaTotal().getValor()) == 0){
+                            throw new PagoIncorrectoException("Pago Invalido, ingrese una moneda");
+                        }else {
+                            Comprador comprador = new Comprador(panelComprador.getMonedaDeposito().getMonedaTotal(), 4, expendedor);
+                            VentanaDeposito.getSnickers();
+                            panelComprador.moneda = null;
+                            compraAction(comprador.queConsumiste(), (monedaDeposito.getMonedaTotal().getValor() - seleccionarProducto.snickers.getValor()));
+                            monedaDeposito.borrarMonedas();
+                            panelComprador.reiniciarprecioTotalmonedasArraylist();
+                        }
                         seleccion = 0;
                     } else {
                         seleccion = 5;
@@ -291,6 +313,8 @@ public class PanelExpendedor extends JPanel {
         throw new RuntimeException(ex);
     }
 
+
+    //ventana emergente que te dice lo que compraste
     public void compraAction(String a, int b) {
         JFrame frame = new JFrame("Compra realizada con exito");
         frame.setSize(500, 100);
@@ -306,6 +330,7 @@ public class PanelExpendedor extends JPanel {
         frame.setVisible(true);
     }
 
+    //cambia el color de fondo del producto seleccionado
     private class ButtonClickListener implements ActionListener {
         int i = 0;
         @Override

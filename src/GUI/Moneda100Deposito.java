@@ -1,12 +1,14 @@
 package GUI;
 
-public class Moneda100Deposito extends MonedaDeposito{
-    public Moneda100Deposito(PanelComprador panelComprador) {
-        super(panelComprador);
+import javax.swing.*;
+import java.awt.*;
+
+public class Moneda100Deposito extends JPanel {
+    public Moneda100Deposito() {
     }
 
-    @Override
-    public void agregarMonedas() {
-        depositoMonedas.add("100");
+
+    public String agregarMonedas() {
+        return ("100");
     }
 }

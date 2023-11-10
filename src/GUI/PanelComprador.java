@@ -14,11 +14,14 @@ public class PanelComprador extends JPanel {
     public int totalmonedasArraylist;
     public ArrayList <Moneda> monedasArraylist;
     private EstadoPanel estadoPanel;
+    private MonedaDeposito monedaDeposito;
 
     public PanelComprador(EstadoPanel estadoPanel){
         this.estadoPanel = estadoPanel;
         monedasArraylist = new ArrayList<>();
         moneda = new MonedaEspecial();
+        monedaDeposito = new MonedaDeposito(this);
+        //ventanaMonedas.getVentanaMonedas();
 
         //estadoPanel.setVisible(true);
         setLayout(new GridLayout(2, 2));
@@ -41,8 +44,11 @@ public class PanelComprador extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     Moneda100 moneda100 = new Moneda100();
                     moneda = moneda100;
-                    monedasArraylist.add(moneda);
+                    addmonedasArrayList(moneda);
+                    //monedasArraylist.add(moneda);
                     estadoPanel.refreshEstadoPanel("seleccione el producto");
+
+                    //ventanaMonedas.addMoneda("100");
 
                 }
             });
@@ -61,7 +67,7 @@ public class PanelComprador extends JPanel {
                 public void actionPerformed(ActionEvent e) {
                     Moneda moneda500 = new Moneda500();
                     moneda = moneda500;
-                    monedasArraylist.add(moneda);
+                    addmonedasArrayList(moneda);
 
                     estadoPanel.refreshEstadoPanel("seleccione el producto");
                 }
@@ -83,7 +89,7 @@ public class PanelComprador extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Moneda1000 moneda1000 = new Moneda1000();
                 moneda = moneda1000;
-                monedasArraylist.add(moneda);
+                addmonedasArrayList(moneda);
 
                 estadoPanel.refreshEstadoPanel("seleccione el producto");
             }
@@ -103,7 +109,7 @@ public class PanelComprador extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Moneda1500 moneda1500 = new Moneda1500();
                 moneda = moneda1500;
-                monedasArraylist.add(moneda);
+                addmonedasArrayList(moneda);
                 estadoPanel.refreshEstadoPanel("seleccione el producto");
             }
         });
@@ -140,7 +146,22 @@ public class PanelComprador extends JPanel {
         }
         return totalmonedasArraylist;
     }
+    public void reiniciarprecioTotalmonedasArraylist(){
+            monedasArraylist.clear();
+    }
+    public void addmonedasArrayList(Moneda a){
+        monedasArraylist.add(a);
+        monedaDeposito.borrarMonedas();
+        for(int i=0; i<monedasArraylist.size();i++){
+            monedaDeposito.getStringMonedaArraylist(i);
+            monedaDeposito.agregarMonedas();
+            monedaDeposito.TEST();
+        }
+        System.out.println(""+precioTotalmonedasArraylist());
+    }
 
-
+    public MonedaDeposito getMonedaDeposito() {
+        return monedaDeposito;
+    }
 }
 
