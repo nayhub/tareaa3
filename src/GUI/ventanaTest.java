@@ -3,6 +3,11 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * ventanaTest es una clase que extiende JFrame y representa la ventana principal del expendedor.
+ * Contiene el título de la ventana, el diseño, el tamaño, la ubicación, la imagen del icono y la visibilidad.
+ */
+
 public class ventanaTest extends JFrame {
 
     public ventanaTest(){
