@@ -13,6 +13,7 @@ public class PanelExpendedor extends JPanel {
     private PanelComprador panelComprador;
     private int seleccion;
     private MonedaDeposito monedaDeposito;
+    private MonedaDepositoGeneral monedaDepositoGeneral;
 
     //Array de Jbutton para configurar cuando un boton está seleccionado
     private JButton[] botones;
@@ -29,8 +30,7 @@ public class PanelExpendedor extends JPanel {
         this.panelComprador = panelComprador;
         this.estadoPanel = estadoPanel;
         monedaDeposito = new MonedaDeposito(panelComprador);
-
-        //panelComprador = new PanelComprador();
+        monedaDepositoGeneral = new MonedaDepositoGeneral(monedaDeposito);
 
         Expendedor expendedor = new Expendedor(5);
         VentanaDeposito = new VentanaDepositoGeneral(expendedor);
@@ -46,12 +46,11 @@ public class PanelExpendedor extends JPanel {
         producto.setBounds(50, 370, 400, 50);
 
 
-        //add(estadoPanel);
-        JLabel deposito = new JLabel();
-        JLabel precios, vuelto;
+
+        JLabel precios;
 
 
-        vuelto = new JLabel();
+
         precios = new JLabel();
 
         //aquí es basicamente donde se muestra el precio y esas cosas, es un JLabel
@@ -323,6 +322,7 @@ public class PanelExpendedor extends JPanel {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+
         JLabel label = new JLabel("Gracias por su compra de: " + a + " Su vuelto es: " + b);
 
         JPanel panel = new JPanel();
@@ -334,7 +334,6 @@ public class PanelExpendedor extends JPanel {
 
     //cambia el color de fondo del producto seleccionado
     private class ButtonClickListener implements ActionListener {
-        int i = 0;
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton source = (JButton) e.getSource();

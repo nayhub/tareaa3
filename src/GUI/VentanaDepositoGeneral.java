@@ -104,7 +104,4 @@ public class VentanaDepositoGeneral {
         super8Deposito.borrarElemento();
     }
     public void getMonedas(){monedaDeposito.borrarMonedas();}
-    public void repaintMonedas(){
-        monedaDeposito.agregarMonedas();
-    }
 }
