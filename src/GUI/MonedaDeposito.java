@@ -18,12 +18,14 @@ public class MonedaDeposito extends JPanel {
         this.panelComprador = panelComprador;
         depositoMonedas = new ArrayList<>();
         monedaEspecial = new MonedaEspecial();
+
     }
     public void agregarMonedas(){
         depositoMonedas.add("TEST");
         repaint();
     }
     public Moneda getMonedaTotal(){
+        monedaEspecial.reiniciarValor();
         monedaEspecial.addValor(panelComprador.precioTotalmonedasArraylist());
         return monedaEspecial;
     }

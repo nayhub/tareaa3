@@ -78,17 +78,18 @@ public class PanelExpendedor extends JPanel {
                     if (seleccion == 0) {
                         seleccion = 1;
                     } else if (seleccion == 1) {
-                        if((monedaDeposito.getMonedaTotal().getValor()) == 0){
+
+                        if(monedaDeposito.getMonedaTotal().getValor() <= 0){
                             throw new PagoIncorrectoException("Pago Invalido, ingrese una moneda");
-                        }else{
-                            Comprador comprador = new Comprador(panelComprador.getMonedaDeposito().getMonedaTotal(), 1, expendedor);
-                            VentanaDeposito.getCocacola();
-                            //panelComprador.moneda = null;
-                            estadoPanel.refreshEstadoPanel("Seleccione otro producto para volver a comprar");
-                            compraAction(comprador.queConsumiste(), (monedaDeposito.getMonedaTotal().getValor() - seleccionarProducto.coca.getValor()));
-                            monedaDeposito.borrarMonedas();
-                            panelComprador.reiniciarprecioTotalmonedasArraylist();
                         }
+
+
+                        Comprador comprador = new Comprador(panelComprador.getMonedaDeposito().getMonedaTotal(), 1, expendedor);
+                        VentanaDeposito.getCocacola();
+                        estadoPanel.refreshEstadoPanel("Seleccione otro producto para volver a comprar");
+                        compraAction(comprador.queConsumiste(), (monedaDeposito.getMonedaTotal().getValor() - seleccionarProducto.coca.getValor()));
+                        monedaDeposito.borrarMonedas();
+                        panelComprador.reiniciarprecioTotalmonedasArraylist();
                         seleccion = 0;
                     } else {
                         seleccion = 1;
@@ -115,6 +116,7 @@ public class PanelExpendedor extends JPanel {
                         if((monedaDeposito.getMonedaTotal().getValor()) == 0){
                             throw new PagoIncorrectoException("Pago Invalido, ingrese una moneda");
                         }else{
+
                             Comprador comprador = new Comprador(panelComprador.getMonedaDeposito().getMonedaTotal(), 2, expendedor);
                             VentanaDeposito.getSprite();
                             panelComprador.moneda = null;
