@@ -18,11 +18,8 @@ public class MonedaDeposito extends JPanel {
         this.panelComprador = panelComprador;
         depositoMonedas = new ArrayList<>();
         monedaEspecial = new MonedaEspecial();
+        //moneda100Deposito = new Moneda100Deposito(this);
 
-    }
-    public void agregarMonedas(){
-        depositoMonedas.add("TEST");
-        repaint();
     }
     public Moneda getMonedaTotal(){
         monedaEspecial.reiniciarValor();
@@ -37,7 +34,8 @@ public class MonedaDeposito extends JPanel {
 
     public void borrarMonedas(){
         depositoMonedas.clear();
-        monedaEspecial.reiniciarValor();
+        //panelComprador.BorrarMonedasArrayList();
+        repaintMonedas();
     }
 
 
@@ -47,7 +45,7 @@ public class MonedaDeposito extends JPanel {
         int y = 50;
 
         for (String monedas : depositoMonedas) {
-            g.setColor(Color.orange);
+            g.setColor(Color.ORANGE);
             g.fillRect(x, y, 58, 30);
             g.setColor(Color.BLACK);
             g.drawString(monedas.toString(), x + 3, y + 20);
@@ -65,4 +63,6 @@ public class MonedaDeposito extends JPanel {
     public ArrayList<String> getDepositoMonedas() {
         return depositoMonedas;
     }
+
+
 }
