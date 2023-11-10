@@ -303,6 +303,11 @@ public class PanelExpendedor extends JPanel {
         super.paint(g);
     }
 
+    /**
+     * Maneja las acciones a realizar en caso de error.
+     *
+     * @param ex La excepción que ha ocurrido.
+     */
     public void errorAction(Exception ex) {
 
         // crea la ventana emergente de error
@@ -324,7 +329,12 @@ public class PanelExpendedor extends JPanel {
         throw new RuntimeException(ex);
     }
 
-
+    /**
+     * Maneja las acciones a realizar después de realizar una compra.
+     *
+     * @param a El producto comprado.
+     * @param b El vuelto generado.
+     */
     //ventana emergente que te dice lo que compraste
     public void compraAction(String a, int b) {
         JFrame frame = new JFrame("Compra realizada con exito");
