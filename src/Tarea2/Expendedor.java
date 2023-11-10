@@ -1,9 +1,5 @@
 package Tarea2;
 
-import Tarea2.CocaCola;
-import Tarea2.Deposito;
-import Tarea2.DepositoM;
-
 /**
  * Clase que representa un expendedor.
  */
@@ -13,7 +9,7 @@ public class Expendedor {
     private Deposito<Producto> fanta;
     private Deposito<Producto> Super8;
     private Deposito<Producto> snikers;
-    private DepositoM monVu;
+    private Deposito<Moneda> monVu;
     private int precio;
     public int numProducto;
 
@@ -28,7 +24,7 @@ public class Expendedor {
         fanta = new Deposito<>();
         Super8 = new Deposito<>();
         snikers = new Deposito<>();
-        monVu = new DepositoM();
+        monVu = new Deposito<>();
         //precio = precioBebidas;
 
         for (int i = 0; i < numBebidas; i++) {
@@ -130,7 +126,7 @@ public class Expendedor {
         }
 
         while (vuelto > 0) {
-            monVu.addMoneda(new Moneda100());
+            monVu.addProducto(new Moneda100());
             vuelto = vuelto - 100;
         }
 
@@ -154,7 +150,7 @@ public class Expendedor {
      * @return El vuelto del comprador en forma de monedas de 100.
      */
     public Moneda getVuelto() {
-        return monVu.getMoneda();
+        return monVu.getProducto();
     }
     public void recargarProductos(){
 
