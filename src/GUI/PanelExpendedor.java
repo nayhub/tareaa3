@@ -43,7 +43,7 @@ public class PanelExpendedor extends JPanel {
         monedaDepositoGeneral = new MonedaDepositoGeneral(monedaDeposito);
 
         Expendedor expendedor = new Expendedor(5);
-        VentanaDeposito = new VentanaDepositoGeneral(expendedor);
+        VentanaDeposito = new VentanaDepositoGeneral(expendedor,monedaDeposito);
         VentanaDeposito.getVentanaDeposito();
 
         JLabel producto = new JLabel();

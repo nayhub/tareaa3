@@ -21,9 +21,6 @@ public class VentanaDepositoGeneral {
     private FantaDeposito fantaDeposito;
     private SnickersDeposito snickersDeposito;
     private MonedaDeposito monedaDeposito;
-<<<<<<< HEAD
-    public VentanaDepositoGeneral(Expendedor expendedor){
-=======
 
     /**
      * Constructor de la clase VentanaDepositoGeneral.
@@ -32,7 +29,6 @@ public class VentanaDepositoGeneral {
      * @param monedaDeposito El depósito de monedas de la aplicación.
      */
     public VentanaDepositoGeneral(Expendedor expendedor, MonedaDeposito monedaDeposito){
->>>>>>> 0681a34a80a93321d70d775623668c61c2ebb9b1
         this.expendedor = expendedor;
         //this.monedaDeposito = monedaDeposito;
 

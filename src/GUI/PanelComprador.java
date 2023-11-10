@@ -149,7 +149,6 @@ public void paint(Graphics g) {
         }
         return totalmonedasArraylist;
     }
-<<<<<<< HEAD
     public void reiniciarprecioTotalmonedasArraylist(){
             monedasArraylist.clear();
     }
@@ -175,7 +174,5 @@ public void paint(Graphics g) {
         }
 
     }
-=======
->>>>>>> 0681a34a80a93321d70d775623668c61c2ebb9b1
 }
 
