@@ -16,10 +16,7 @@ Errores comunes:
 
 
 Bugs del Branch "Main"
-- Bug: Originalmente, en el codigo del Branch main no puede recibir más de una moneda por compra, lo que imposibilita por ejemplo comprar un dulce de $500 con 5 monedas de 100, esto se intento modifcar en el Branch Alternative, pero resultó más dañino al codigo.
+- missFeature: El codigo del Branch main no puede recibir más de una moneda por compra, lo que imposibilita por ejemplo comprar un dulce de $500 con 5 monedas de 100 (Pero si lo hace el Branch Alternativo.
 
 Bugs del Branch "Alternative"
-
-- Breaking Bug: La compra se modifico para que se realizara con una moneda especial, que fuera la suma de todas las monedas ingresadas por el usuario.Lamentablemente se creo un bug donde las Excepciones personalizadas no actuaban cuando era necesario, haciendo posible comprar con -1000 pesos.
-- Breaking Bug: La compra se modifico para que actuara en el caso de que se quisiera pagar con un numero menor que 0 (exception), pero entonces el codigo empezo a dar resultados incoherentes, un ejemplo es comprar una bebida de $1000 con una moneda de $1500 y recibir 2000 de vuelto.
-
+- La ventana de Deposito de monedas no se actualiza hasta que se ingresa una moneda nueva, lo que causa que si haces una compra, seguiras viendo las monedas que metiste originalmente a la maquina. Pero es solo una ilucion, la compra se realiza sin ningun problema.
