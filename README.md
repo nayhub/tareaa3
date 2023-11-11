@@ -15,8 +15,6 @@ Errores comunes:
 - Si te quedaste sin productos, recargar la maquina es tan facil como darle un click a la ventana de Deposito
 
 
-Bugs del Branch "Main"
-- missFeature: El codigo del Branch main no puede recibir más de una moneda por compra, lo que imposibilita por ejemplo comprar un dulce de $500 con 5 monedas de 100 (Pero si lo hace el Branch Alternativo.
 
-Bugs del Branch "Alternative"
+Bugs
 - La ventana de Deposito de monedas no se actualiza hasta que se ingresa una moneda nueva, lo que causa que si haces una compra, seguiras viendo las monedas que metiste originalmente a la maquina. Pero es solo una ilucion, la compra se realiza sin ningun problema.
